@@ -7,7 +7,6 @@ import {
 import colors from '../utilize/colors';
 export default function Avatar ({name, size}){
     const initial =name[0].toUpperCase();
-
     return (
         <View style={[styles.avatarContainer,{width:size,height:size}]}>
             <Text style={styles.avatarTxt}>{initial}</Text>
