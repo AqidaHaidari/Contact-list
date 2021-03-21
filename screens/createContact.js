@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import {
     View,
     Text,
@@ -9,13 +9,24 @@ import {
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import ContactListItem from '../components/contactListItem';
 import colors from '../utilize/colors';
-export default function createContact(){
+import * as SQLite from 'expo-sqlite'; //fro db
+const db=SQLite.openDatabase('contacts.db');//for db
+
+export default function createContact({navigation}){
+    const [name, setName]=useState(null);
+    const [phone, setPhone]=useState(null);
+    const [email, setEmail]=useState(null);
+    const addContact=(name,phone,email)=>{
+        db.transaction(tx=>{
+            tx.executeSql('insert into contact(name, phone, email) values(?,?,?);',[name,phone,email],()=>navigation.navigate('Contacts'));
+        })
+    }
  return(
      <View style={styles.formContainer}>
-        <TextInput placeholder="name" style={styles.input}/>
-        <TextInput placeholder="email"style={styles.input} keyboardType="email-address" />
-        <TextInput placeholder="phone" style={styles.input} keyboardType="numeric"/>
-        <TouchableOpacity style={[styles.btn,{backgroundColor:colors.primary}]}>
+        <TextInput placeholder="name" style={styles.input} value={name} onChangeText={(name)=>{setName(name)}}/>
+        <TextInput placeholder="email"style={styles.input} keyboardType="email-address" value={email} onChangeText={(email)=>{setEmail(email)}}/>
+        <TextInput placeholder="phone" style={styles.input} keyboardType="numeric" value={phone} onChangeText={(phone)=>{setPhone(phone)}}/>
+        <TouchableOpacity style={[styles.btn,{backgroundColor:colors.primary}]} onPress={()=>addContact(name,phone,email)}>
             <Text style={styles.btnTxt}>Save</Text>
         </TouchableOpacity>
          <TouchableOpacity style={[styles.btn,{backgroundColor:'red'}]}>

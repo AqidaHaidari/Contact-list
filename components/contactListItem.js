@@ -7,7 +7,8 @@ import {
 } from 'react-native';
 import colors from '../utilize/colors';
 import Avatar from './avatar';
-export default function ContactListItem ({name, phone,onPress}){
+import { MaterialCommunityIcons} from '@expo/vector-icons';
+export default function ContactListItem ({name, phone,onPress,onDeleteContact}){
     const initial =name[0].toUpperCase();
 
     return (
@@ -18,16 +19,21 @@ export default function ContactListItem ({name, phone,onPress}){
                 <Text style={styles.title}>{name}</Text>
                 <Text style={styles.subTittle}>{phone}</Text>
             </View>
+            <View style={styles.trash}>
+            <MaterialCommunityIcons name='trash-can' size={24} color='red' onPress={onDeleteContact} />
+
+            </View>
             </View>
         </TouchableOpacity>
     )
 }
 const styles=StyleSheet.create({
     container:{
-        flex:1,
+     
         paddingLeft:24
     },
     contactInfo:{
+        flex:1,
         flexDirection:'row',
         paddingVertical:16,
         paddingHorizontal:24,
@@ -35,6 +41,7 @@ const styles=StyleSheet.create({
         borderBottomColor:colors.secondary
     },
     details:{
+        flex:2,
         marginLeft:20
 
     },
@@ -45,5 +52,9 @@ const styles=StyleSheet.create({
     },
     subTittle:{
         color:colors.primary
+    },
+    trash:{
+        flex:1
+
     }
 })

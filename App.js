@@ -12,9 +12,9 @@ import * as SQLite from 'expo-sqlite'; //fro db
 const db=SQLite.openDatabase('contacts.db');//for db
 const Stack=createStackNavigator()
 export default function App() {
-  useEffect(()=>{
-    db.transaction(para=>{ //for db
-      para.executeSql('create table if not exists contact(id integer primary key autoincrement,name text, phone text);',[],()=>console.log('table created!'));
+  useEffect(()=>{//for db
+    db.transaction(para=>{ 
+      para.executeSql('create table if not exists contact(id integer primary key autoincrement,name text, phone text,email text);',[],()=>console.log('table created!'));
     })
   })
   return (
