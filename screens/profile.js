@@ -10,7 +10,10 @@ import colors from '../utilize/colors';
 import {Feather} from '@expo/vector-icons';
 import ContactThumnail from "../components/contactThumnail";
 import DetailsListItems from '../components/detailsListItems';
-export default function profile({name,phone,email}){
+export default function Profile(props){
+    const {route}=props;
+    const {item} =route.params;
+    const  {name, email,phone}=item
  return(
      <View style={styles.container}>
          <View style={styles.thumbnailSection}>

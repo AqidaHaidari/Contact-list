@@ -3,7 +3,8 @@ import {
     View,
     Text,
     StyleSheet,
-    FlatList
+    FlatList,
+    TouchableOpacity
 } from 'react-native';
 import ContactListItem from '../components/contactListItem';
 import colors from '../utilize/colors';
@@ -20,7 +21,7 @@ const contact=[
     {id:'9',name:'Marjan',phone:'0000111111',email:'aqida@gmail.com'},
     {id:'10',name:'Zainab',phone:'09999999888',email:'aqida@gmail.com'}
 ]
-export default function contacts(){
+export default function contacts({navigation}){
  return(
      <View>
     <FlatList data={contact}
@@ -28,13 +29,13 @@ export default function contacts(){
         item.id
     }} 
     renderItem={({item})=>{
-        return <ContactListItem name={item.name} phone={item.phone} />
+        return <ContactListItem name={item.name} phone={item.phone} onPress={()=>navigation.navigate('Profile',{item:item})}/>
     }} />
-    <View style={styles.floatButton}>
+    <TouchableOpacity  onPress={()=>navigation.navigate('CreateContact')} style={styles.floatButton}>
         <Text>
             <Feather name="plus" size={28} color="white"></Feather>
         </Text>
-    </View>
+    </TouchableOpacity>
     </View>
  )
 
